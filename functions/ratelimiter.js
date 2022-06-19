@@ -7,8 +7,8 @@ const moment = require("moment");
 const NodeCache = require( "node-cache" );
 const myCache = new NodeCache();
 
-const limit = 10;
-const interval = 1 * 60 * 1000;
+const limit = 100;
+const interval = 60 * 60 * 1000;
 const ips = {};
 
 /**
@@ -42,12 +42,13 @@ function rateLimitv2(req, res, next) {
     const key = `${ip}_${moment().format("YYYY-MM-DD")}`;
     const count = myCache.get(key) || 0;
     if (count >= limit) {
-        res.status(429).send("Too Many Requests");
+        res.status(429).send(`Too Many Requests`);
         myCache.set(key, count + 1, interval);
     } else {
         myCache.set(key, count + 1, interval);
         res.setHeader('X-RateLimit-Limit', limit);
         res.setHeader('X-RateLimit-Remaining', limit - myCache.get(key));
+        res.setHeader('X-RateLimit-Reset', "Timer is not implemented yet. But it will take 1 hour.");
         setTimeout(() => {
             /// delete the key after the interval
             myCache.del(key);
@@ -56,4 +57,4 @@ function rateLimitv2(req, res, next) {
     }
 } // end rateLimitv2
 
-module.exports = rateLimitv2;
+module.exports = rateLimitv2

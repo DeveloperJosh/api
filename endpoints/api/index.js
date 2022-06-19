@@ -2,7 +2,7 @@ var express = require('express');
 const api = express.Router();
 const fs = require('fs');
 const path = require('path');
-const rateLimitv2 = require('../../functions/ratelimiter');
+const rateLimitv2 = require('../../functions/rateLimiter');
 
 function token_generator(length) {
     var result = '';
@@ -27,7 +27,7 @@ function get_token(req, res, next) {
             if (data.includes(token)) {
                 next();
             } else {
-                res.status(401).send('Unauthorized');
+                res.status(401).json({ error: "Unauthorized" });
             }
         }
     });
@@ -35,7 +35,11 @@ function get_token(req, res, next) {
 }
 
 api.get('/', rateLimitv2, (req, res) => {
-  const token = token_generator(32);
+    res.status(200).json({ message: 'Welcome to the API' });
+});
+
+api.get('/keygen', rateLimitv2, get_token, (req, res) => {
+    const token = token_generator(32);
     fs.appendFile(path.join(__dirname, '../../txt/tokens.txt'), token + '\n', function (err) {
         if (err) {
             console.log(err);
