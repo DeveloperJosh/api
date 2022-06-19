@@ -15,7 +15,7 @@ function pinger() {
     https.get(url, function(res) {
         //// use est time zone for the time
         console.log(`${moment().tz('America/New_York').format('h:mm:ss a')} - ${url} is up ${res.statusCode}`);
-        console.log("The next ping will be at " + moment().tz('America/New_York').add(1, 'minutes').format('h:mm:ss a'));
+        console.log("The next ping will be at " + moment().tz('America/New_York').add(5, 'minutes').format('h:mm:ss a'));
     }).on('error', function(e) {
         console.log("error pinging " + url);
     });
