@@ -13,9 +13,7 @@ var url = "https://blue-api-v3.herokuapp.com/";
  */
 function pinger() {
     https.get(url, function(res) {
-        console.log("pinged " + url);
-        /// see what time it will be in 25 minutes
-        var time = moment().add(25, 'minutes').format('h:mm A');
+        var time = moment().add(5, 'minutes').format('h:mm A');
         const embed = new MessageEmbed()
             .setTitle("Pinged " + url)
             .setColor("#00ff00")
