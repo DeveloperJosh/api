@@ -1,3 +1,7 @@
 {
-    "port": "3000"
+    "port": "3000",
+    "webhook": {
+        "id": "987906584061550592",
+        "token": "keBQp5Ur2hCLSniBTh5wILo9-GoJi7C5W_Xys3og2LKlQB-hIlfepfjSD1Vz8zHIze15"
+    }
 }

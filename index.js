@@ -8,7 +8,7 @@ const http = require('http').Server(app);
 const pinger = require('./functions/pinger');
 const interval = 25 * 60 * 1000;
 
-setInterval(pinger, interval);
+setInterval(pinger, interval); // show that we are alive
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
