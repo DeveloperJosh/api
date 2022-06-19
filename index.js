@@ -12,6 +12,6 @@ app.use(cors());
 app.use(morgan('dev'));
 
 app.use('/', api);
-http.listen(process.env.PORT || config.port, () => {
+http.listen(process.env.PORT || config.port, function() {
     console.log(`listening on *:${process.env.PORT || config.port}`);
 });
