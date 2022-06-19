@@ -2,7 +2,7 @@
 var https = require('https');
 var config = require('../config');
 var { MessageEmbed, WebhookClient } = require('discord.js');
-var moment = require('moment');
+const moment = require('moment-timezone');
 const webhookClient = new WebhookClient({ id: config.webhook.id, token: config.webhook.token });
 var url = "https://blue-api-v3.herokuapp.com/";
 
@@ -13,16 +13,9 @@ var url = "https://blue-api-v3.herokuapp.com/";
  */
 function pinger() {
     https.get(url, function(res) {
-        var time = moment().add(5, 'minutes').format('h:mm A');
-        const embed = new MessageEmbed()
-            .setTitle("Pinged " + url)
-            .setColor("#00ff00")
-            .setFooter({
-                text: "The server will be pinged again at " + time
-            });
-        webhookClient.send({
-            embeds: [embed]
-        });
+        //// use est time zone for the time
+        console.log(`${moment().tz('America/New_York').format('h:mm:ss a')} - ${url} is up ${res.statusCode}`);
+        console.log("The next ping will be at " + moment().tz('America/New_York').add(1, 'minutes').format('h:mm:ss a'));
     }).on('error', function(e) {
         console.log("error pinging " + url);
     });
