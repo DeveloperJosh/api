@@ -6,7 +6,7 @@ const config = require('./config');
 const cors = require("cors");
 const http = require('http').Server(app);
 const pinger = require('./functions/pinger');
-const interval = 1 * 60 * 1000;
+const interval = 30 * 60 * 1000;
 
 setInterval(pinger, interval);
 
