@@ -1,15 +1,18 @@
-const pinger = require('./functions/pinger');
 const showRequests = require('./functions/requests');
 const express = require('express');
 const app = require('express')();
 const api = require('./endpoints/api/index');
 const config = require('./config');
 const cors = require("cors");
+const pingerv2 = require('./functions/pinger');
 const http = require('http').Server(app);
 
-const interval = 5 * 60 * 1000;
+const interval = 10 * 60 * 1000;
 
-setInterval(pinger, interval);
+/// if interval is at max, then clear the setInterval
+setInterval(() => {
+    pingerv2();
+}, interval);
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
