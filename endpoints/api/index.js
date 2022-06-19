@@ -2,7 +2,7 @@ var express = require('express');
 const api = express.Router();
 const fs = require('fs');
 const path = require('path');
-const rateLimitv2 = require('../../functions/rateLimiter.js');
+const rateLimitv2 = require('../../functions/rateLimiter');
 
 function token_generator(length) {
     var result = '';
