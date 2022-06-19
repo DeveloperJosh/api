@@ -2,7 +2,8 @@ var express = require('express');
 const api = express.Router();
 const fs = require('fs');
 const path = require('path');
-const rateLimitv2 = require('../../functions/rateLimiter');
+/// get rate limit from functions/ratelimit.js
+const ratelimitv2 = require('../../functions/ratelimiter');
 
 function token_generator(length) {
     var result = '';
@@ -34,11 +35,11 @@ function get_token(req, res, next) {
 
 }
 
-api.get('/', rateLimitv2, (req, res) => {
+api.get('/', ratelimitv2, (req, res) => {
     res.status(200).json({ message: 'Welcome to the API' });
 });
 
-api.get('/keygen', rateLimitv2, get_token, (req, res) => {
+api.get('/keygen', ratelimitv2, get_token, (req, res) => {
     const token = token_generator(32);
     fs.appendFile(path.join(__dirname, '../../txt/tokens.txt'), token + '\n', function (err) {
         if (err) {
