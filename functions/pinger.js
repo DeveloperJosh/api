@@ -7,6 +7,8 @@ var url = "https://blues-api-v2.herokuapp.com/"; /// change this to your own url
 
 /**
  * @param {string} pinger pinger for heroku apps
+ * @author Blue
+ * @description pings the url to see if it is up
  */
 function pinger() {
     https.get(url, function(res) {
