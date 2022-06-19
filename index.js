@@ -5,6 +5,10 @@ const api = require('./endpoints/api/index');
 const config = require('./config');
 const cors = require("cors");
 const http = require('http').Server(app);
+const pinger = require('./functions/pinger');
+const interval = 30 * 60 * 1000;
+
+setInterval(pinger, interval);
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
