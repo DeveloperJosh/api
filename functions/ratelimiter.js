@@ -7,8 +7,8 @@ const moment = require("moment");
 const NodeCache = require( "node-cache" );
 const myCache = new NodeCache();
 
-const limit = 100;
-const interval = 60 * 60 * 1000;
+const limit = 10;
+const interval = 1 * 60 * 1000;
 const ips = {};
 
 /**
