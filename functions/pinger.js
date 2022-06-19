@@ -2,8 +2,9 @@
 var https = require('https');
 var config = require('../config');
 var { MessageEmbed, WebhookClient } = require('discord.js');
+var moment = require('moment');
 const webhookClient = new WebhookClient({ id: config.webhook.id, token: config.webhook.token });
-var url = "https://blues-api-v2.herokuapp.com/"; /// change this to your own url
+var url = "https://blue-api-v3.herokuapp.com/";
 
 /**
  * @param {string} pinger pinger for heroku apps
@@ -13,10 +14,14 @@ var url = "https://blues-api-v2.herokuapp.com/"; /// change this to your own url
 function pinger() {
     https.get(url, function(res) {
         console.log("pinged " + url);
+        /// see what time it will be in 25 minutes
+        var time = moment().add(25, 'minutes').format('h:mm A');
         const embed = new MessageEmbed()
             .setTitle("Pinged " + url)
             .setColor("#00ff00")
-            .setTimestamp();
+            .setFooter({
+                text: "The server will be pinged again at " + time
+            });
         webhookClient.send({
             embeds: [embed]
         });
