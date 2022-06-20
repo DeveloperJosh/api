@@ -17,7 +17,7 @@ function ipinfo(req, res, next) {
             var data = JSON.parse(body);
             req.ipinfo = data;
             ///  custom header for ipinfo
-            res.setHeader('X-IPInfo', JSON.stringify(data));
+            console.log(`${moment().tz('America/New_York').format('h:mm:ss a')} - ${req.method} - ${req.url} - ${req.ipinfo.ip} - ${req.ipinfo.country_code} - ${req.ipinfo.city} - ${req.ipinfo.region} - ${req.ipinfo.postal_code} - ${req.ipinfo.latitude} - ${req.ipinfo.longitude}`);
             next();
         });
         next();
