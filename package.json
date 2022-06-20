@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,6 +19,7 @@
     "moment-timezone": "^0.5.34",
     "morgan": "^1.10.0",
     "node-cache": "^5.1.2",
-    "request-ip": "^2.2.0"
+    "request-ip": "^2.2.0",
+    "weather-js": "^2.0.0"
   }
 }

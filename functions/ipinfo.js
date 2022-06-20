@@ -1,6 +1,6 @@
 const http = require('http');
 const requestIP = require('request-ip');
-
+const weather = require('weather-js');
 
 /**
  * 
@@ -17,10 +17,19 @@ function ipinfo(req, res, next) {
         res.on('end', function() {
             var data = JSON.parse(body);
             req.ipinfo = data;
-            /// get latitude and longitude
-            const l = req.ipinfo.latitude = data.latitude;
-            const y =req.ipinfo.longitude = data.longitude;
-            console.log(`The latitude is ${l} and the longitude is ${y}`);
+            ///  weather api
+            weather.find({
+                search: data.city,
+                degreeType: 'C',
+                lang: 'en'
+            }, function(err, result) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    req.weather = result;
+                    console.log(result);
+                }
+            });
             next();
         });
         next();
@@ -28,6 +37,9 @@ function ipinfo(req, res, next) {
         /// show error on getting the info
         console.log("error getting" + e.message);
     });
+    return req.ipinfo;
 }
+
+///// weather info using latitude and longitude
 
 module.exports = ipinfo;

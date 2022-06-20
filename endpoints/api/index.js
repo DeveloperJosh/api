@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 /// get rate limit from functions/ratelimit.js
 const ratelimitv2 = require('../../functions/ratelimiter');
+const ratelimit = require('../../functions/ratelimiter');
 
 function token_generator(length) {
     var result = '';
