@@ -1,6 +1,5 @@
 const http = require('http');
 const requestIP = require('request-ip');
-const weather = require('weather-js');
 
 /**
  * 
@@ -17,19 +16,8 @@ function ipinfo(req, res, next) {
         res.on('end', function() {
             var data = JSON.parse(body);
             req.ipinfo = data;
-            ///  weather api
-            weather.find({
-                search: data.city,
-                degreeType: 'C',
-                lang: 'en'
-            }, function(err, result) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    req.weather = result;
-                    console.log(result);
-                }
-            });
+            ///  custom header for ipinfo
+            res.setHeader('X-IPInfo', JSON.stringify(data));
             next();
         });
         next();
