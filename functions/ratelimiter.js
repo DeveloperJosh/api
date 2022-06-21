@@ -7,36 +7,13 @@ const moment = require("moment");
 const NodeCache = require( "node-cache" );
 const myCache = new NodeCache();
 
-const limit = 10;
-const interval = 1 * 60 * 1000;
-const ips = {};
+const limit = 100;
+const interval = 15 * 60 * 1000;
 
 /**
-* @param {string} rateLimit - The rate limit to be applied. Made by Blue @ SynTech.
-*/
-function rateLimit(req, res, next) {
-    const ip = requestIP.getClientIp(req);
-    if (ips[ip] >= limit) {
-        res.status(429).send("Too Many Requests");
-        ips[ip] = setTimeout(() => {
-            delete ips[ip];
-        } , interval);
-    } else {
-        ips[ip] = ips[ip] + 1 || 1;
-        res.setHeader('X-RateLimit-Limit', limit);
-        res.setHeader('X-RateLimit-Remaining', limit - ips[requestIP.getClientIp(req)]); 
-        setTimeout(() => {
-            ips[ip] = ips[ip] - 1;
-        } , interval);
-        next();
-    }
-
-} // end rateLimit
-
-/**
- * @param {string} rateLimitv2 - This is verson 2 of the rate limiter, made by Blue @ SynTech.
+ * @param {string} rateLimit - This is a custom function that limits the number of requests made to the server.
  */
-function rateLimitv2(req, res, next) {
+function rateLimit(req, res, next) {
     //// using node-cache to store the ip and its count
     const ip = requestIP.getClientIp(req);
     const key = `${ip}_${moment().format("YYYY-MM-DD")}`;
@@ -57,4 +34,4 @@ function rateLimitv2(req, res, next) {
     }
 } // end rateLimitv2
 
-module.exports = rateLimitv2
+module.exports = rateLimit
