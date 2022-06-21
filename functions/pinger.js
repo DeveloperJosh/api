@@ -1,7 +1,5 @@
 //// heroku url pinger
 var https = require('https');
-var config = require('../config');
-var { MessageEmbed, WebhookClient } = require('discord.js');
 const moment = require('moment-timezone');
 var url = "https://blue-api-v3.herokuapp.com/";
 
