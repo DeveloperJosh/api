@@ -5,6 +5,7 @@ const api = require('./endpoints/api/index');
 const config = require('./config');
 const cors = require("cors");
 const pinger = require('./functions/pinger');
+const path = require('path');
 const http = require('http').Server(app);
 
 const interval = 10 * 60 * 1000;
@@ -13,6 +14,10 @@ setInterval(() => {
     pinger();
 }, interval);
 
+//// reander the index.ejs file
+app.set('views', './views');
+app.set('view engine', 'pug');
+app.use(express.static(path.join(__dirname, './public')));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cors());
