@@ -67,8 +67,7 @@ api.get('/weather', (req, res) => {
 api.get('/weather/:city', (req, res) => {
     /// if geoweather is successful, return the weather
     const city = req.params.city; 
-    const country = req.query.country; 
-    WeatherApi(city, country, req, res, () => {
+    WeatherApi(city, req, res, () => {
         res.json(req.weather);
     });
 });

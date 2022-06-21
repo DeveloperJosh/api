@@ -10,9 +10,9 @@ require('dotenv').config();
  * @param {string} country - the country to get the location of weather (required)
  * @returns {object} - This is the location of the user.
  */
-function WeatherApi(city, country, req, res, next) {
+function WeatherApi(city, req, res, next) {
     /// country code and city are required for url
-    const url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&units=metric&appid=${process.env.WEATHER_API_KEY}`;
+    const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.WEATHER_API_KEY}`;
     http.get(url, (response) => {
         let data = '';
         response.on('data', (chunk) => {
