@@ -64,6 +64,9 @@ api.get('/weather', (req, res) => {
     GeoWeather(ip, req, res, () => {
         const main = req.weather.main;
         const temp = main.temp;
+        if (!temp) {
+            const temp = "No weather data available";
+        }
         const humidity = main.humidity;
         const wind = req.weather.wind.speed;
         const wind_deg = req.weather.wind.deg;
