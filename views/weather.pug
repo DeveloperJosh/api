@@ -1,33 +1,19 @@
 doctype html
 html
   head
-    title Weather Info
+    title Weather API Info - Weather API
     link(rel="stylesheet", href="/bootstrap/css/bootstrap.min.css")
     link(rel="stylesheet", href="/css/main.css")
   body(style="padding-top: 300px")
-    <!-- Weather card with info -->
-    card(class="text-center")
-      h1 Weather:
-      h3 temp #{temp}°C
-        h3 humidity #{humidity}%
-        h3 wind #{wind} m/s
-        h3 clouds #{clouds}%
-    // Footer
-    br
-    br
-    br
-    br
-    br
-    br
-    br
-    br
-    br
-    br
-    br
-    br
-    br
-    br
-    br
-    footer(class="text-center text-list-unstyled")
-      p Copyright &copy; Blue's API 2022
+    .container
+      .row
+        .col-md-12
+          h1 Weather API Info
+          p
+            | This is a simple weather API that uses the OpenWeatherMap API.
+            | It is a simple way to get the current weather in a city.
+          p 
+            | The API is simple and easy to use.
+            | It only requires a city name and a country code.
+            | It returns the current weather in the city.
 

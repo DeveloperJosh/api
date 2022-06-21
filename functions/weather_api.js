@@ -3,17 +3,16 @@
 //// we need to get the user's ip address
 //// we need to get the user's location
 const http = require('http');
-const geo = require('geoip-lite');
+require('dotenv').config();
 
 /***
- * @param {string} ip - This is the ip address of the user.
+ * @param {string} city - the city to get the location of weather (required)
+ * @param {string} country - the country to get the location of weather (required)
  * @returns {object} - This is the location of the user.
  */
-function GeoWeather(ip, req, res, next) {
-    const geoIP = geo.lookup(ip);
-    const city = geoIP.city;
-    /// url must have celcius
-    const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=871b4e382aa126b9160bbf5f09cff2c3`;
+function WeatherApi(city, country, req, res, next) {
+    /// country code and city are required for url
+    const url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&units=metric&appid=${process.env.WEATHER_API_KEY}`;
     http.get(url, (response) => {
         let data = '';
         response.on('data', (chunk) => {
@@ -30,4 +29,4 @@ function GeoWeather(ip, req, res, next) {
    });
 }
 
-module.exports = GeoWeather;
+module.exports = WeatherApi;

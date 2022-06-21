@@ -3,8 +3,7 @@ const api = express.Router();
 const fs = require('fs');
 const path = require('path');
 const rateLimit = require('../../functions/ratelimiter');
-const GeoWeather = require('../../functions/geolocate');
-const requestIP = require('request-ip');
+const WeatherApi = require('../../functions/weather_api');
 
 function token_generator(length) {
     var result = '';
@@ -60,30 +59,17 @@ api.get('/test', get_token, (req, res) => {
 
 api.get('/weather', (req, res) => {
     /// if geoweather is successful, return the weather
-    const ip = requestIP.getClientIp(req);    
-    GeoWeather(ip, req, res, () => {
-        const main = req.weather.main;
-        const temp = main.temp;
-        if (!temp) {
-            const temp = "No weather data available";
-        }
-        const humidity = main.humidity;
-        const wind = req.weather.wind.speed;
-        const wind_deg = req.weather.wind.deg;
-        const clouds = req.weather.clouds.all;
-        const rain = req.weather.rain;
-        const snow = req.weather.snow;
-        const sunrise = req.weather.sys.sunrise;
-        /// render the weather.ejs file
-        res.render('weather', {
-            temp: temp,
-            humidity: humidity,
-            wind: wind,
-            wind_deg: wind_deg,
-            clouds: clouds,
-            rain: rain,
-            snow: snow
-        });
+    res.render('weather', {
+        url: req.hostname
+    })
+});
+
+api.get('/weather/:city', (req, res) => {
+    /// if geoweather is successful, return the weather
+    const city = req.params.city; 
+    const country = req.query.country; 
+    WeatherApi(city, country, req, res, () => {
+        res.json(req.weather);
     });
 });
 
