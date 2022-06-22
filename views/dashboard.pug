@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title Admin Page! - Weather API
+    link(rel="stylesheet", href="/bootstrap/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/css/main.css")
+    body(style="padding-top: 100px" class="bg")
+      .container(class="text-center")
+        .row
+        .col-md-12
+        h1(class="text-white") Hello There...
+         p(class="lead text-small text-white")
+           | I see you tried admin login,
+           | You are not authorized to access this page,
+           | As you don't have admin privileges, you are not allowed to access this page.
+         form(action="/logout", method="post")
+              input(type="submit", value="Logout" class="btn btn-primary")

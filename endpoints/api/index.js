@@ -4,6 +4,9 @@ const fs = require('fs');
 const path = require('path');
 const rateLimit = require('../../functions/ratelimiter');
 const WeatherApi = require('../../functions/weather_api');
+const requestIP = require('request-ip');
+const NodeCache = require( "node-cache" );
+const Logined = new NodeCache();
 
 function token_generator(length) {
     var result = '';
@@ -32,7 +35,27 @@ function get_token(req, res, next) {
             }
         }
     });
+}
 
+function check_cache(req, res, next) {
+    /// check if the user is logged in
+    const ip = requestIP.getClientIp(req);
+    if (Logined.has(ip)) {
+        next();
+    } else {
+        res.render('login');
+    }
+}
+
+function logout(req, res, next) {
+    /// check if the user is logged in
+    const ip = requestIP.getClientIp(req);
+    if (Logined.has(ip)) {
+        Logined.del(ip);
+        next();
+    } else {
+        res.render('login');
+    }
 }
 
 api.get('/', rateLimit, (req, res) => {
@@ -70,6 +93,28 @@ api.get('/weather/:city', (req, res) => {
     WeatherApi(city, req, res, () => {
         res.json(req.weather);
     });
+});
+
+api.get('/dash', check_cache, (req, res) => {
+    res.render('dashboard');
+});
+
+api.post('/logout', logout, (req, res) => {
+    res.redirect('/');
+});
+
+api.post('/login_check', (req, res) => {
+    //// check if username and password are correct
+    const username = req.body.username;
+    const password = req.body.password;
+    const ip = requestIP.getClientIp(req);
+    if (username === 'admin' && password === 'ZBMslnOHeQrDt9qP4e5hQx5OgkyBJHvv') {
+        //// set a cache for the user to be logged in for 1 hour
+        Logined.set(ip, true, 3600);
+        res.redirect('/dash');
+    } else {
+        res.send('Invalid username or password');
+    }
 });
 
 module.exports = api;

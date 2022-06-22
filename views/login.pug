@@ -1,0 +1,24 @@
+<!--Admin Login Page-->
+doctype html
+html
+  head
+    title Admin Login - Weather API
+    link(rel="stylesheet", href="/bootstrap/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/css/main.css")
+    body(style="padding-top: 100px" class="bg")
+        .container(class="text-center")
+            .row
+            .col-md-12
+            form(action="/login_check", method="post")
+                img(src="/images/logo.jpg" alt="Weather API Logo" class="logo img-circle")
+                p(class="lead text-white")
+                    | Please enter your admin username and password.
+                p(class="lead text-white")
+                    | Username:
+                input(type="text", name="username" class="")
+                p(class="lead text-white")
+                    | Password:
+                input(type="password", name="password")
+                p
+                    | 
+                input(type="submit", value="Login" class="btn btn-primary")

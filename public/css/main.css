@@ -5,3 +5,23 @@ body {
 code {
   color: white;
 }
+
+.logo {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  display: block;
+}
+
+.bg {
+  background-color: black;
+}
+
+.img-circle {
+  border-radius: 50%;
+}
+
+input {
+  border-radius: 15px;
+  padding: 5px;
+}
