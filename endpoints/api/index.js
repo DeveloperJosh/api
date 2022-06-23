@@ -80,14 +80,58 @@ api.get('/test', get_token, (req, res) => {
     });
 });
 
+/// random city picker
+function random_city() {
+    const cities = [
+        'New York',
+        'Los Angeles',
+        'Chicago',
+        'Houston',
+        'Philadelphia',
+        'Phoenix',
+        'Dallas',
+        'Austin',
+        'Indianapolis',
+        'Sarnia',
+        'london,ca',
+    ];
+   /// get a random city
+    const yes = cities[Math.floor(Math.random() * cities.length)];
+    return yes;
+}
+
 api.get('/weather', (req, res) => {
-    /// if geoweather is successful, return the weather
-    res.render('weather', {
-        url: req.hostname
-    })
+    WeatherApi(random_city(), req, res, () => {
+        const weather = req.weather;
+        /// temperature in fahrenheit and celsius
+        const temp_f = weather.current.temp_f;
+        const temp_c = weather.current.temp_c;
+        const text = weather.current.condition.text;
+        const weather_icon = weather.current.condition.icon;
+        const humidity = weather.current.humidity;
+        const wind_speed = weather.current.wind_mph;
+        const wind_dir = weather.current.wind_dir;
+        const cloud_cover = weather.current.cloud;
+        const icon = weather.current.condition.icon;
+        const localtime = weather.location.localtime;
+        res.render('weather', {
+            city: weather.location.name,
+            country: weather.location.country,
+            temp_f: temp_f,
+            temp_c: temp_c,
+            text: text,
+            weather_icon: weather_icon,
+            humidity: humidity,
+            wind_speed: wind_speed,
+            wind_dir: wind_dir,
+            cloud_cover: cloud_cover,
+            icon:  `https:${icon}`,
+            localtime: localtime,
+        })
+    });
 });
 
-api.get('/weather/:city', (req, res) => {
+api.get('/weather/:city', rateLimit, (req, res) => {
     /// if geoweather is successful, return the weather
     const city = req.params.city; 
     WeatherApi(city, req, res, () => {

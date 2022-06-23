@@ -6,20 +6,31 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(rel="stylesheet", href="/bootstrap/css/bootstrap.min.css")
     link(rel="stylesheet", href="/css/main.css")
-  body(style="padding-top: 300px")
+  body(style="padding-top: 100px")
     .container
       .row
         .col-md-12
-          h1 Weather API Info
-          p
-            | This is a simple weather API that uses the OpenWeatherMap API.
-            | It is a simple way to get the current weather in a city.
-          p 
-            | The API is simple and easy to use.
-            | It only requires a city name and a country code.
-            | It returns the current weather in the city.
-          p
-            | The example below shows how to use the API,
-            | It is a simple way to get the current weather in a city.
-          code
-            | https://#{url}/weather/city,countrycode
+        <!--Show what the weather is like-->
+        h1(class="text-center")
+          | Weather API
+          img(src=icon, alt="yes" class="logo-icon")
+        h3(class="text-center")
+          | Weather API is a simple weather API that allows you to get the weather for any city in the world.
+        h4(class="text-center")
+          | What the return data looks like:
+        .card(class="bg-dark text-white")
+          .card-header(class="text-center")
+            | Return Data
+          .card-body(class="text-center")
+            | { "city": "#{city}",
+            |   "country": "#{country}",
+            |   "localtime": "#{localtime}",
+            |   "temp_c": "#{temp_c}°C",
+            |   "temp_f": "#{temp_f}°F",
+            |   "humidity": "#{humidity}%",
+            |   "wind": "#{wind_speed}",
+            |   "text": "#{text}",
+            |   "clouds": "#{cloud_cover}%",
+            |   "icon": "#{icon}" }
+          .card-footer(class="text-center")
+            | Copyright &copy; 2022 Blue's Weather API

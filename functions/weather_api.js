@@ -12,16 +12,20 @@ require('dotenv').config();
  */
 function WeatherApi(city, req, res, next) {
     /// country code and city are required for url
-    const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.WEATHER_API_KEY}`;
-    http.get(url, (response) => {
+    const url = `http://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_API_KEY}&q=${city}&aqi=no`;
+    http.get(url, (response, err) => {
         let data = '';
         response.on('data', (chunk) => {
             data += chunk;
         });
         response.on('end', () => {
-            const weather = JSON.parse(data);
-            req.weather = weather;
-            next();
+            if(err) {
+                console.log(err);
+            } else {
+                const weather = JSON.parse(data);
+                req.weather = weather;
+                next();
+            }
         });
         response.on('error', (err) => {
             console.log(err);
