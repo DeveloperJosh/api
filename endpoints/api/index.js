@@ -59,7 +59,7 @@ function logout(req, res, next) {
 }
 
 api.get('/', rateLimit, (req, res) => {
-    res.status(200).json({ message: 'Welcome to the API' });
+    res.render('home');
 });
 
 api.get('/keygen', rateLimit, (req, res) => {

@@ -31,3 +31,26 @@ input {
   border-radius: 15px;
   padding: 5px;
 }
+
+nav {
+  background-color: #f74d0aec;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+a {
+  /* remove link underline */
+  color: white;
+  text-decoration: none;
+}
+
+/* remove a::hover */
+a:hover {
+  text-decoration: none;
+  color: rgb(231, 238, 238);
+}
