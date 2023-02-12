@@ -4,6 +4,7 @@
  */
 const requestIP = require('request-ip');
 const moment = require("moment");
+const moment2 = require('moment-timezone');
 const NodeCache = require( "node-cache" );
 const myCache = new NodeCache();
 
@@ -25,7 +26,7 @@ function rateLimit(req, res, next) {
         myCache.set(key, count + 1, interval);
         res.setHeader('X-RateLimit-Limit', limit);
         res.setHeader('X-RateLimit-Remaining', limit - myCache.get(key));
-        res.setHeader('X-RateLimit-Reset', "Timer is not implemented yet. But it will take 1 hour.");
+        res.setHeader('X-RateLimit-Reset', '1 Hour');
         setTimeout(() => {
             /// delete the key after the interval
             myCache.del(key);

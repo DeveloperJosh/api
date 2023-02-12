@@ -1,7 +1,7 @@
 //// heroku url pinger
 var https = require('https');
 const moment = require('moment-timezone');
-var url = "https://blue-api-v3.herokuapp.com/";
+var url = "http://localhost:3000/";
 
 /**
  * @param {string} Ping This is the main function that pings the url.
